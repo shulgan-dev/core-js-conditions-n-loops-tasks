@@ -139,27 +139,57 @@ function convertToRomanNumerals(/* num */) {
  *  '1950.2'  => 'one nine five zero point two'
  */
 function convertNumberToString(numberStr) {
-  const numbers = {
-    0: 'zero',
-    1: 'one',
-    2: 'two',
-    3: 'three',
-    4: 'four',
-    5: 'five',
-    6: 'six',
-    7: 'seven',
-    8: 'eight',
-    9: 'nine',
-    '.': 'point',
-    ',': 'point',
-    '-': 'minus',
-  };
-  let res = '';
-
-  for (let i = 0; i < numberStr.length; i += 1) {
-    res += `${numbers[numberStr[i]]}${i === numberStr.length - 1 ? '' : ' '}`;
+  let str = '';
+  let i = 0;
+  while (i < numberStr.length) {
+    const char = numberStr[i];
+    switch (char) {
+      case '0':
+        str += 'zero ';
+        break;
+      case '1':
+        str += 'one ';
+        break;
+      case '2':
+        str += 'two ';
+        break;
+      case '3':
+        str += 'three ';
+        break;
+      case '4':
+        str += 'four ';
+        break;
+      case '5':
+        str += 'five ';
+        break;
+      case '6':
+        str += 'six ';
+        break;
+      case '7':
+        str += 'seven ';
+        break;
+      case '8':
+        str += 'eight ';
+        break;
+      case '9':
+        str += 'nine ';
+        break;
+      case '-':
+        str += 'minus ';
+        break;
+      case '.':
+      case ',':
+        str += 'point ';
+        break;
+      default:
+        break;
+    }
+    i += 1;
   }
-
+  let res = '';
+  for (let j = 0; j < str.length - 1; j += 1) {
+    res += str[j];
+  }
   return res;
 }
 
@@ -249,8 +279,27 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  let findedIndex = -1;
+  let index = 1;
+  while (index < arr.length) {
+    let head = 0;
+    for (let i = 0; i < index; i += 1) {
+      head += arr[i];
+    }
+    let tail = 0;
+
+    for (let j = index + 1; j < arr.length; j += 1) {
+      tail += arr[j];
+    }
+
+    if (head === tail) {
+      findedIndex = index;
+      break;
+    }
+    index += 1;
+  }
+  return findedIndex;
 }
 
 /**
